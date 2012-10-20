@@ -1,0 +1,3 @@
+[submodule "lib/php-wsdl-generator"]
+	path = lib/php-wsdl-generator
+	url = git@github.com:maddingo/php-wsdl-generator.git
