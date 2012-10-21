@@ -23,8 +23,9 @@ if ($slp->isNonSoapRequest()) {
 		$soapClass = $slp->getRequestClass();
 		$soapImpl = $soapClass.'Impl';
 		include_once($soapImpl.'.php');
+		//$server = new SoapServer('CMISWS-Service.wsdl');
 		$server = new SoapServer(null, array('uri' => "http://docs.oasis-open.org/ns/cmis/ws/200908/", 'style' => SOAP_DOCUMENT, 'use' => SOAP_LITERAL));
-		$server->setClass($soapClass);
+		$server->setClass($soapImpl);
 		$server->handle();
 	} catch(Exception $ex) {
 		 $slp-fault($ex);
