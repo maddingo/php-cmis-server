@@ -1,4 +1,9 @@
 <?php
+include_once('RepositoryInfo.php');
+include_once('RepositoryCapabilities.php');
+include_once('ACLCapability.php');
+include_once('BaseObjectTypeId.php');
+
 interface RepositoryService {
 	/*
 	 * Returns a list of RepositoryEntries

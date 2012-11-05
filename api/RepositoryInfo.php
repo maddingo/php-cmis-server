@@ -83,14 +83,14 @@ class RepositoryInfo {
 	protected $principalAnyone;
 	
 	/**
-	 * @var unknown_type
+	 * 
 	 */
 	protected $any;
 	
 	/**
 	 * Any attribute, map of attributes
-	 * @var unkown_type
+	 * 
 	 */
-	public $otherAttributes;
+	private $otherAttributes;
 	
 }

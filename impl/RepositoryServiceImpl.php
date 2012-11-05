@@ -1,5 +1,5 @@
 <?php
-include_once('RepositoryService.php');
+include_once(__DIR__.'/../api/RepositoryService.php');
 
 class RepositoryServiceImpl implements RepositoryService {
 	
@@ -7,7 +7,7 @@ class RepositoryServiceImpl implements RepositoryService {
 		
 	}
 	
-	public function getRepositories() {
+	public function getRepositories($extension=null) {
 		$ret = new stdClass();
 		$ret->repositories = array();
 		$repo = new stdClass();
@@ -17,7 +17,7 @@ class RepositoryServiceImpl implements RepositoryService {
 		return $ret;
 	}
 	
-	public function getRepositoryInfo($repositoryId) {
+	public function getRepositoryInfo($repositoryId, $any=null) {
 		$ret = new stdClass();
 		$ret->repositoryInfo = new stdClass();
 		$ret->repositoryInfo->repositoryId = $repositoryId;

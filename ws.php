@@ -13,7 +13,7 @@ $soapClasses 	= array(
 	'VersioningService'
 );
 
-$slp = new ServiceListPrinter($soapClasses, "http://docs.oasis-open.org/ns/cmis/ws/200908/");
+$slp = new ServiceListPrinter('api/', $soapClasses, "http://docs.oasis-open.org/ns/cmis/ws/200908/");
 
 if ($slp->isNonSoapRequest()) {
 	//echo "<pre>";var_dump($slp); echo "</pre>";
@@ -22,7 +22,7 @@ if ($slp->isNonSoapRequest()) {
 	try {
 		$soapClass = $slp->getRequestClass();
 		$soapImpl = $soapClass.'Impl';
-		include_once($soapImpl.'.php');
+		include_once("impl/$soapImpl.php");
 		//$server = new SoapServer('CMISWS-Service.wsdl');
 		$server = new SoapServer(null, array('uri' => "http://docs.oasis-open.org/ns/cmis/ws/200908/", 'style' => SOAP_DOCUMENT, 'use' => SOAP_LITERAL));
 		$server->setClass($soapImpl);
