@@ -1,5 +1,7 @@
 <?php
-class RepositoryInfo {
+include_once(__DIR__.'/ExtensionData.php');
+
+class RepositoryInfo extends ExtensionData {
 	/**
 	 * 
 	 * @var string
@@ -14,83 +16,83 @@ class RepositoryInfo {
 	/**
 	 * @var string
 	 */
-	protected $repositoryDescription;
+	public $repositoryDescription;
 	
 	/**
 	 * @var string
 	 */
-	protected $vendorName;
+	public $vendorName;
 	
 	/**
 	 * @var string
 	 */
-	protected $productName;
+	public $productName;
 	
 	/**
 	 * @var string
 	 */
-	protected $productVersion;
+	public $productVersion;
 	
 	/**
 	 * @var string
 	 */
-	protected $rootFolderId;
+	public $rootFolderId;
 	
 	/**
 	 * @var string
 	 */
-	protected $latestChangeLogToken;
+	public $latestChangeLogToken;
 	
 	/**
 	 * @var object RepositoryCapabilities
 	 */
-	protected $capabilities;
+	public $capabilities;
 	
 	/**
 	 * @var object ACLCapability
 	 */
-	protected $aclCapability;
+	public $aclCapability;
 	
 	/**
 	 * @var string
 	 */
-	protected $cmisVersionSupported;
+	public $cmisVersionSupported;
 
 	/**
 	 * @var string
 	 */
-	protected $thinClientURI;
+	public $thinClientURI;
 	
 	/**
 	 * @var boolean
 	 */
-	protected $changesIncomplete;
+	public $changesIncomplete;
 	
 	/**
 	 * List of EnumBaseObjectTypeIds
 	 * @var object BaseObjectTypeId
 	 */
-	protected $changesOnType;
+	public $changesOnType;
 	
 	/**
 	 * @var string
 	 */
-	protected $principalAnonymous;
+	public $principalAnonymous;
 	
 	/**
 	 * @var string
 	 */
-	protected $principalAnyone;
+	public $principalAnyone;
 	
 	/**
-	 * 
+	 * @var unknown_type
 	 */
-	protected $any;
+	public $any;
 	
 	/**
 	 * Any attribute, map of attributes
-	 * 
+	 * @var unknown_type
 	 */
-	private $otherAttributes;
+	public $otherAttributes;
 	
 }
