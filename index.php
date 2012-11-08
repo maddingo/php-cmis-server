@@ -1,5 +1,5 @@
 <?php
-// phpinfo();
+ phpinfo();
 ?>
 
 <h1>This is the PHP CMIS Server</h1>

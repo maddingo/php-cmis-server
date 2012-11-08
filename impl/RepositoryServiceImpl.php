@@ -28,8 +28,10 @@ class RepositoryServiceImpl extends ServiceImpl implements RepositoryService {
 		$repoInfo->productName = "Prod Name";
 		$repoInfo->productVersion ="Prod Version";
 		$repoInfo->rootFolderId ="1";
-		$repoInfo->capabilities = new RepositoryCapabilities();
-		
+	
+		$caps = new RepositoryCapabilities();
+		$caps->
+		$repoInfo->capabilities = $caps;
 		$this->addExpirationHeader();
 		
 		return array('repositoryInfo' => $repoInfo);

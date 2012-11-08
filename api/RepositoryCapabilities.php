@@ -4,71 +4,71 @@ class RepositoryCapabilities {
 	/**
 	 * @var object CapabilityContentStreamUpdates
 	 */
-	public $capabilityContentStreamUpdatability;
+	public $capabilityContentStreamUpdatability=null;
 	
 	/**
 	 * @var object CapabilityChanges
 	 */
-	public $capabilityChanges;
+	public $capabilityChanges=null;
 	
 	/**
 	 * @var object CapabilityRenditions
 	 */
-	public $capabilityRenditions;
+	public $capabilityRenditions=null;
 
 	/**
 	 * @var boolean
 	 */
-	public $capabilityGetDescendants;
+	public $capabilityGetDescendants=false;
 	
 	/**
 	 * @var boolean
 	 */
-	public $capabilityGetFolderTree;
+	public $capabilityGetFolderTree=false;
 
 	/**
 	 * @var boolean 
 	 */
-	public $capabilityMultifiling;
+	public $capabilityMultifiling=false;
 	
 	/**
 	 * @var boolean
 	 */
-	public $capabilityUnfiling;
+	public $capabilityUnfiling=false;
 	
 	/**
 	 * @var boolean
 	 */
-	public $capabilityVersionSpecificFiling;
+	public $capabilityVersionSpecificFiling=false;
 
 	/**
 	 * @var boolean
 	 */
-	public $capabilityPWCSearchable;
+	public $capabilityPWCSearchable=false;
 	
 	/**
 	 * @var boolean
 	 */
-	public $capabilityPWCUpdatable;
+	public $capabilityPWCUpdatable=false;
 	
 	/**
 	 * @var boolean
 	 */
-	public $capabilityAllVersionsSearchable;
+	public $capabilityAllVersionsSearchable=false;
 
 	/**
 	 * @var object CapabilityQuery 
 	 */
-	public $capabilityQuery;
+	public $capabilityQuery=null;
 	
 	 /**
 	  * @var object CapabilityJoin 
 	  */
-	public $capabilityJoin;
+	public $capabilityJoin=null;
 
 	/**
 	 * @var object CapabilityAcl
 	 */ 
-	public $capabilityACL;
+	public $capabilityACL=null;
 	
 }

@@ -3,10 +3,12 @@ class WSDispatcher {
 	private $wsdl;
 	private $wsdlDoc;
 	private $mappings;
+	private $baseUri;
 
-	public function __construct($wsdl, $mappings) {
+	public function __construct($wsdl, $mappings, $baseUri) {
 		$this->wsdl = $wsdl;
 		$this->mappings = $mappings;
+		$this->baseUri = $baseUri;
 	}
 
 	private function isWSDLRequest() {
@@ -22,22 +24,38 @@ class WSDispatcher {
 		return false;
 	}
 
-	private function showWSDL($xslt=false) {
-		header('Content-type: text/xml');
-		header('Accept: text/xml');
+	private function showWSDL($contentType=false) {
+		if ($contentType) {
+			header("Content-type: $contentType");			
+		} else {
+			header('Content-type: text/xml');
+		}
 		if (!isset($this->wsdlDoc)) {
 			$doc = new DOMDocument();
 			$doc->load($this->wsdl);
-			// TODO transform WSDL to reflect the proper endpoint address
-			$this->wsdlDoc = $doc;
+			$this->wsdlDoc = $this->updateEndpointAddress($doc);
 		}
 		echo $this->wsdlDoc->saveXML();
+	}
+	
+	private function updateEndpointAddress($docSrc) {
+		$addressNodes = $docSrc->documentElement->getElementsByTagNameNS('http://schemas.xmlsoap.org/wsdl/soap/', 'address');
+		for ($i=0; $i < $addressNodes->length; $i++) {
+			$node = $addressNodes->item($i);
+			$location = $node->attributes->getNamedItem('location');	
+			$val = $location->nodeValue;
+			$newVal = preg_replace('/http:\/\/localhost(.*)/', "{$this->baseUri}\$1", $val);
+			$location->nodeValue = $newVal;		
+		}
+		return $docSrc;	
 	}
 	
 	private function showSummary() {
 		//echo '<h1>Summery</h1>';
 		//header('Content-Type: text/html');
-		$this->showWSDL('ws/wsdl2html.xsl');
+		$this->showWSDL();
+		//$xslt = new XSLTProcessor();
+		//$xslt->importStylesheet($stylesheet);
 	}
 	
 	public function dispatch() {
