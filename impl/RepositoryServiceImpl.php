@@ -41,7 +41,7 @@ class RepositoryServiceImpl extends ServiceImpl implements RepositoryService {
 		echo "aaa";
 	}
 	
-	public function getTypeDefinition() {
+	public function getTypeDefinition($repositoryId, $typeId, $any=null) {
 		echo "aaa";
 	}
 	
