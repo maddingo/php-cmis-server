@@ -97,12 +97,51 @@ class TypeDefinition extends ExtensionData {
 			</xs:choice>
 
 	 */
+	/**
+	 * array of
+	 * @var object PropertyBooleanDefinition
+	 */
 	public $propertyBooleanDefinition;
+	
+	/**
+	 * array of
+	 * @var object PropertyDateTimeDefinition
+	 */
 	public $propertyDateTimeDefinition;
+	
+	/**
+	 * array of
+	 * @var object ProperyDecimalDefinition
+	 */
 	public $propertyDecimalDefinition;
+	
+	/**
+	 * array of
+	 * @var object PropertyIdDefinition 
+	 */
 	public $propertyIdDefinition;
+	
+	/**
+	 * array of
+	 * @var object PropertyIntegerDefinition
+	 */
 	public $propertyIntegerDefinition;
+	
+	/**
+	 * array of
+	 * @var object PropertyHtmlDefinition
+	 */
 	public $propertyHtmlDefinition;
+	
+	/**
+	 * array of 
+	 * @var object PropertyStringDefinition
+	 */
 	public $propertyStringDefinition;
+	
+	/**
+	 * array of
+	 * @var object PropertyUriDefinition
+	 */
 	public $propertyUriDefinition;
 }

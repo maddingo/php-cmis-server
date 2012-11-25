@@ -1,12 +1,12 @@
 <?php
 include_once(__DIR__.'/../api/RepositoryService.php');
 include_once(__DIR__.'/../api/RepositoryEntry.php');
+include_once(__DIR__.'/../api/TypeDefinition.php');
 include_once(__DIR__.'/ServiceImpl.php');
 
 class RepositoryServiceImpl extends ServiceImpl implements RepositoryService {
-	
+
 	public function __construct() {
-		
 	}
 	
 	public function getRepositories($extension=null) {
@@ -30,11 +30,12 @@ class RepositoryServiceImpl extends ServiceImpl implements RepositoryService {
 		$repoInfo->rootFolderId ="1";
 	
 		$caps = new RepositoryCapabilities();
-		$caps->
 		$repoInfo->capabilities = $caps;
 		$this->addExpirationHeader();
 		
-		return array('repositoryInfo' => $repoInfo);
+		$ret = new stdClass();
+		$ret->repositoryInfo = $repoInfo;
+		return $ret;
 	}
 	
 	public function getTypeChildren() {
@@ -42,7 +43,23 @@ class RepositoryServiceImpl extends ServiceImpl implements RepositoryService {
 	}
 	
 	public function getTypeDefinition($repositoryId, $typeId, $any=null) {
-		echo "aaa";
+		$type = new TypeDefinition();
+		switch($typeId) {
+			case 'cmis:document':
+			case 'cmis:folder':
+			case 'cmis:policy':
+			case 'cmis:relationship':
+				$baseId = $typeId;
+				break;
+			default:
+				throw new Exception("unknown typeId: $typeId for repository $repositoryId");
+				break;
+		}
+		$type->baseId = $baseId;
+		
+		$ret = new stdClass();
+		$ret->type = $type;
+		echo $ret;
 	}
 	
 	public function getTypeDescendants() {

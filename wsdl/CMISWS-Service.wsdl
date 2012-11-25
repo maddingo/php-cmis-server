@@ -1154,7 +1154,7 @@
 	<service name="RepositoryService">
 		<port name="RepositoryServicePort" binding="cmisw:RepositoryServicePortBinding">
 			<soap:address
-				location="http://localhost/RepositoryService" />
+				location="http://localhost/ws.php/RepositoryService" />
 		</port>
 	</service>
 	<service name="VersioningService">

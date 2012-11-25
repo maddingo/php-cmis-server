@@ -18,7 +18,7 @@ class WSDispatcher {
 	private function getRequestService() {
 		if (isset($_SERVER['HTTP_SOAPACTION'])) {
 			if (isset($_SERVER['PATH_INFO'])) {
-				return substr($_SERVER['PATH_INFO'], 1);
+				return substr($_SERVER['PATH_INFO'], 8);
 			}
 		}
 		return false;
@@ -71,7 +71,7 @@ class WSDispatcher {
 				global $server;
 				$soapImpl = $this->mappings[$service]['class'];
 				include_once($this->mappings[$service]['file']);
-
+				
 				$serverOpts = array(
 						'uri' => "http://docs.oasis-open.org/ns/cmis/ws/200908/",
 						'style' => SOAP_DOCUMENT,
@@ -84,8 +84,6 @@ class WSDispatcher {
 				$server = new SoapServer($this->wsdl, $serverOpts);
 				$server->setClass($soapImpl);
 				$message = $this->unpackMessage();
-				//file_put_contents('/tmp/soapcontent.log', print_r($_SERVER, true));
-				//file_put_contents('/tmp/soap.log', $message);
 				$server->handle($message);
 			} catch(Exception $ex) {
 				$server->fault('Client', $ex->getMessage());
@@ -95,24 +93,30 @@ class WSDispatcher {
 	
 	private function unpackMessage() {
 		$input = $GLOBALS['HTTP_RAW_POST_DATA'];
-		if (strstr($_SERVER['CONTENT_TYPE'], 'multipart') === false) {
+		$ctTokens = explode(';', $_SERVER['CONTENT_TYPE']);
+		if ($ctTokens[0] != 'multipart/related') {
 			return $input;
 		}
-		
-		// TODO unpack multipart messages when MTOM is enabled
-		$matches = array();
-		// grab multipart boundary from content type header
-		preg_match('/boundary="(.*?)"/', $_SERVER['CONTENT_TYPE'], $matches);
-		$boundary = $matches[1];
-		//die ("BOUNDARY: $boundary\n");
-		$startPos = strpos($input, "--$boundary");
-		$startPos = strpos($input, "\n\n", $startPos);
-		die("START: $startPos\n");
-		$endPos = strpos($input, "--$boundary--", $startPos);
-		//die("END: $endPos\n");
-		
+		$ctTokens = array_splice($ctTokens, 1);
+		$ct = array();
+		foreach ($ctTokens as $ctToken) {
+			list($ctKey, $ctVal) = explode('=', $ctToken);
+			$ct[$ctKey] = $ctVal; 
+		}
+// 		foreach ($ct as $ctKey => $ctVal) {
+// 			error_log("$ctKey: $ctVal\n", 3, '/tmp/phpserver.log');
+// 		}
+		$startBoundary = "--{$ct['boundary']}";
+		$endBoundary = "--{$ct['boundary']}--";
+		$startPos = strpos($input, $startBoundary) + strlen($startBoundary);
+		$endPos = strpos($input, $endBoundary, $startPos);		
 		$content = substr($input, $startPos, $endPos - $startPos);
-		die ("CONTENT: $content");
-		return $content;		
+		error_log("content:\n$content\n", 3, '/tmp/phpserver.log');
+		
+		list($chunkHeader, $chunkBody) = explode("\r\n\r\n", $content, 2);
+		error_log("Header:\n$chunkHeader\n", 3, '/tmp/phpserver.log');
+		error_log("Body:\n$chunkBody\n", 3, '/tmp/phpserver.log');
+
+		return $chunkBody;		
 	}
 }
